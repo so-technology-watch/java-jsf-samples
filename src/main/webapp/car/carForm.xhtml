@@ -18,6 +18,7 @@
 					<p:outputLabel for="idCar" value="Id" />
 					<p:outputPanel>
 						<p:inputText id="idCar" required="true" style="width: 89%;"
+							disabled="#{CarFormController.isUpdate()}"
 							value="#{CarFormController.carEditAdd.id}" />
 						<p:message for="idCar" />
 					</p:outputPanel>
@@ -43,10 +44,11 @@
 
 				</p:panelGrid>
 
+				<p:messages for="exception" />
 				<div align="center">
 					<p:commandButton icon="ui-icon-disk" value="#{msg.save}"
 						action="#{CarFormController.saveOrUpdateCar()}"
-						update="panelGridCar" process="panelGridCar,@this" />
+						update="formAddEditCar" process="formAddEditCar" />
 				</div>
 			</h:form>
 		</p:panel>

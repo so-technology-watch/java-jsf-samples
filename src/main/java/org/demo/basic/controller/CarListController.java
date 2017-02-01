@@ -17,18 +17,18 @@ public class CarListController {
 	private List<CarRecord> listCars;
 
 	public String init() {
-		String lReturn = "";
+		String result = "";
 		listCars = carService.findAll();
 		if (listCars != null) {
-			lReturn = "/car/carList?faces-redirect=true";
+			result = "/car/carList?faces-redirect=true";
 		}
-		return lReturn;
+		return result;
 	}
 
-	public void removeCar(CarRecord pCar) {
-		if (pCar != null) {
-			if (carService.delete(pCar)) {
-				listCars.remove(pCar);
+	public void removeCar(CarRecord car) {
+		if (car != null) {
+			if (carService.delete(car)) {
+				listCars.remove(car);
 			}
 		}
 	}
