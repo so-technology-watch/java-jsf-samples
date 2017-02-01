@@ -1,0 +1,58 @@
+===================================================================================
+ENTITY "$entity.name"  ( generation date and time : $today.date $today.time )
+===================================================================================
+
+==================================================
+ATTRIBUTES : ${DOLLAR}entity.attributes
+==================================================
+${DOLLAR}entity.attributes.size() = $entity.attributes.size() 
+${DOLLAR}entity.attributesCount = $entity.attributesCount
+#foreach( $attribute in $entity.attributes )
+ . $attribute.name : type = $attribute.type ( key element = $attribute.isKeyElement() )
+#end
+
+#set( $values      = $fn.buildValues($entity.attributes, 1) )
+#set( $keyValues   = $fn.buildValues($entity.keyAttributes,     2) )
+#set( $dataValues  = $fn.buildValues($entity.nonKeyAttributes , 2) )
+
+==================================================
+LITERAL VALUES FOR ALL ATTRIBUTES ( count = $values.size()  )
+==================================================
+#foreach( $attribute in $entity.attributes )
+  Value for attribute "${attribute.name}" = $values.getValue($attribute.name)
+#end
+
+All values : $values.allValues
+
+Comparison statements :
+#foreach( $attribute in $entity.attributes )
+  Statement for attribute "${attribute.name}" : $values.comparisonStatement("var", $attribute)
+#end
+
+==================================================
+LITERAL VALUES FOR KEY ATTRIBUTES ( count = $keyValues.size()  )
+==================================================
+#foreach( $attribute in $entity.keyAttributes )
+  Value for attribute "${attribute.name}" = $keyValues.getValue($attribute.name)
+#end
+
+All values : $keyValues.allValues
+
+Comparison statements :
+#foreach( $attribute in $entity.keyAttributes )
+  Statement for attribute "${attribute.name}" : $keyValues.comparisonStatement("var", $attribute)
+#end
+
+==================================================
+LITERAL VALUES FOR 'NON KEY' ATTRIBUTES ( count = $dataValues.size()  )
+==================================================
+#foreach( $attribute in $entity.nonKeyAttributes )
+  Value for attribute "${attribute.name}" = $dataValues.getValue($attribute.name)
+#end
+
+All values : $dataValues.allValues
+
+Comparison statements :
+#foreach( $attribute in $entity.nonKeyAttributes )
+  Statement for attribute "${attribute.name}" : $dataValues.comparisonStatement("var", $attribute)
+#end

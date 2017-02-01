@@ -1,0 +1,36 @@
+
+GENERATOR CONSTANTS FOR SPECIAL CHARACTERS :
+============================================
+${DOLLAR}DOLLAR = ${DOLLAR}
+${DOLLAR}SHARP  = ${SHARP}
+${DOLLAR}AMP    = ${AMP}
+${DOLLAR}QUOT   = ${QUOT}
+${DOLLAR}LT     = ${LT}
+${DOLLAR}GT     = ${GT}
+${DOLLAR}LBRACE = ${LBRACE}
+${DOLLAR}RBRACE = ${RBRACE}
+
+
+GENERATOR CONSTANTS USABLE AS METHODS PARAMETERS :
+==================================================
+
+Criteria usable in "getAttributesByCriteria()" :
+${DOLLAR}const.KEY                    = $const.KEY  ( ${DOLLAR}const.getKEY() = $const.getKEY() )
+${DOLLAR}const.NOT_KEY                = $const.NOT_KEY  ( ${DOLLAR}const.getNOT_KEY() = $const.getNOT_KEY() )
+
+${DOLLAR}const.TEXT                   = $const.TEXT  ( ${DOLLAR}const.getTEXT() = $const.getTEXT() )
+${DOLLAR}const.NOT_TEXT               = $const.NOT_TEXT  ( ${DOLLAR}const.getNOT_TEXT() = $const.getNOT_TEXT() )
+
+${DOLLAR}const.IN_LINKS               = $const.IN_LINKS
+${DOLLAR}const.NOT_IN_LINKS           = $const.NOT_IN_LINKS
+
+${DOLLAR}const.IN_SELECTED_LINKS      = $const.IN_SELECTED_LINKS
+${DOLLAR}const.NOT_IN_SELECTED_LINKS  = $const.NOT_IN_SELECTED_LINKS
+
+
+'DateType' enumeration values :
+${DOLLAR}const.NO_DATE_TYPE  = $const.NO_DATE_TYPE
+${DOLLAR}const.DATE_ONLY     = $const.DATE_ONLY
+${DOLLAR}const.TIME_ONLY     = $const.TIME_ONLY
+${DOLLAR}const.DATE_AND_TIME = $const.DATE_AND_TIME
+

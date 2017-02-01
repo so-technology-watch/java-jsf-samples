@@ -1,0 +1,32 @@
+
+
+PROJECT VARIABLES :
+===================
+
+PREDEFINED VARIABLES :
+----------------------
+
+Project folders ( predefined variables ) :
+ . ${DOLLAR}SRC      = "$SRC"
+ . ${DOLLAR}RES      = "$RES"
+ . ${DOLLAR}WEB      = "$WEB"
+ . ${DOLLAR}TEST_SRC = "$TEST_SRC"
+ . ${DOLLAR}TEST_RES = "$TEST_RES"
+ . ${DOLLAR}DOC      = "$DOC"
+ . ${DOLLAR}TMP      = "$TMP"
+
+Project packages ( predefined variables ) :
+ . ${DOLLAR}ROOT_PKG   = "$ROOT_PKG"
+ . ${DOLLAR}ENTITY_PKG = "$ENTITY_PKG"
+
+ALL VARIABLES :
+---------------
+From ${DOLLAR}project.variables ( all variables including predefined variables ) :
+#foreach( $var in $project.allVariables )
+ . ${DOLLAR}$var.name = $var.value
+#end
+
+PROJECT OBJECT :
+================
+${DOLLAR}project.locationFullPath        = $project.locationFullPath
+${DOLLAR}project.templatesFolderFullPath = $project.templatesFolderFullPath

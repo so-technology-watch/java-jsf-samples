@@ -1,0 +1,115 @@
+===================================================================================
+ENTITY "$entity.name"  ( generation date and time : $today.date $today.time )
+===================================================================================
+
+==================================================
+ATTRIBUTES : ${DOLLAR}entity.attributes
+==================================================
+${DOLLAR}entity.attributes.size() = $entity.attributes.size() 
+${DOLLAR}entity.attributesCount = $entity.attributesCount
+#foreach( $attribute in $entity.attributes )
+ . $attribute.name : type = $attribute.type ( key element = $attribute.isKeyElement() )
+#end
+
+==================================================
+KEY ATTRIBUTES : ${DOLLAR}entity.keyAttributes
+==================================================
+${DOLLAR}entity.keyAttributes.size() = $entity.keyAttributes.size() 
+${DOLLAR}entity.keyAttributesCount = $entity.keyAttributesCount
+#foreach( $attribute in $entity.keyAttributes )
+ . $attribute.name : type = $attribute.type ( key element = $attribute.isKeyElement() )
+#end
+
+==================================================
+NON KEY ATTRIBUTES : ${DOLLAR}entity.nonKeyAttributes
+==================================================
+${DOLLAR}entity.nonKeyAttributes.size() = $entity.nonKeyAttributes.size() 
+${DOLLAR}entity.nonKeyAttributesCount = $entity.nonKeyAttributesCount
+#foreach( $attribute in $entity.nonKeyAttributes )
+ . $attribute.name : type = $attribute.type ( key element = $attribute.isKeyElement() )
+#end
+
+==================================================
+ATTRIBUTES SELECTION : 
+==================================================
+Selection = all the "key" attributes ( idem ${DOLLAR}entity.keyAttributes )
+${DOLLAR}entity.getAttributesByCriteria(${DOLLAR}const.KEY) ) :
+#set( $keyAttributes = $entity.getAttributesByCriteria($const.KEY) )
+count = $keyAttributes.size()
+#set( $b = $keyAttributes.size() == $entity.keyAttributesCount )
+#assertTrue($b, "Invalid key attributes count")
+#foreach( $attribute in $keyAttributes )
+ . $attribute.name ( key element = $attribute.isKeyElement() )
+#end
+
+Selection = all the "not key" attributes ( idem ${DOLLAR}entity.nonKeyAttributes )
+${DOLLAR}entity.getAttributesByCriteria(${DOLLAR}const.NOT_KEY) ) :
+#set( $notKeyAttributes = $entity.getAttributesByCriteria($const.NOT_KEY) )
+count = $notKeyAttributes.size()
+#set( $b = $notKeyAttributes.size() == $entity.nonKeyAttributesCount )
+#assertTrue($b, "Invalid key attributes count")
+#foreach( $attribute in $notKeyAttributes )
+ . $attribute.name ( key element = $attribute.isKeyElement() )
+#end
+
+Selection = attributes that are "not in the Primary Key" and "not in a Foreign Key of the selected links"
+( basic attributes used 'as is', not involved in a link ) 
+${DOLLAR}entity.getAttributesByCriteria(${DOLLAR}const.NOT_KEY, ${DOLLAR}const.NOT_IN_SELECTED_LINKS ) ) :
+#set( $basicAttributes = $entity.getAttributesByCriteria( $const.NOT_KEY, $const.NOT_IN_SELECTED_LINKS ) )
+count = $basicAttributes.size()
+#foreach( $attribute in $basicAttributes )
+ . $attribute.name ( key element = $attribute.isKeyElement(), used in FK = $attribute.isFK() )
+#end
+
+Selection = attributes that are "not in the Primary Key" and "in a Foreign Key of the selected links"
+( link attributes, defining the FK for a link ) 
+${DOLLAR}entity.getAttributesByCriteria(${DOLLAR}const.NOT_KEY, ${DOLLAR}const.IN_SELECTED_LINKS ) ) :
+#set( $fkAttributes = $entity.getAttributesByCriteria( $const.NOT_KEY, $const.IN_SELECTED_LINKS ) )
+count = $fkAttributes.size()
+#foreach( $attribute in $fkAttributes )
+ . $attribute.name ( key element = $attribute.isKeyElement(), used in FK = $attribute.isFK() )
+#end
+
+
+##--------------------------------------------------------------------------------------------------------
+## Data fields = fields not in Primary Key and not in selected Links    
+#set( $dataFields = $entity.getAttributesByCriteria( $const.NOT_KEY, $const.NOT_IN_SELECTED_LINKS ) )
+##--------------------------------------------------------------------------------------------------------
+## Link fields = fields not in Primary Key and used as FK in selected Links    
+#set( $linkFields = $entity.getAttributesByCriteria( $const.NOT_KEY, $const.IN_SELECTED_LINKS ) )
+
+#set( $allMappedFields = $fn.concatLists($entity.keyAttributes, $dataFields) )
+
+==================================================
+ENTITY LINKS  ( links count = $entity.links.size() )
+==================================================
+#foreach( $link in $entity.links )
+ ------------------------------
+ Link 
+ ------------------------------
+  ${DOLLAR}link.id                       = $link.id
+  ${DOLLAR}link.isSelected()             = $link.isSelected()
+  ${DOLLAR}link.targetEntity.name        = $link.targetEntity.name
+  ${DOLLAR}link.targetEntityFullType     = $link.targetEntityFullType
+  ${DOLLAR}link.cardinality              = $link.cardinality
+  ${DOLLAR}link.isOwningSide()           = $link.isOwningSide()
+  ${DOLLAR}link.isCardinalityOneToOne    = $link.isCardinalityOneToOne()
+  ${DOLLAR}link.isCardinalityManyToOne   = $link.isCardinalityManyToOne()
+  ${DOLLAR}link.isCardinalityOneToMany   = $link.isCardinalityOneToMany()
+  ${DOLLAR}link.isCardinalityManyToMany  = $link.isCardinalityManyToMany()
+
+  ${DOLLAR}link.attributesCount   = $link.attributesCount 
+  ${DOLLAR}link.attributes.size() = $link.attributes.size()
+#foreach( $attributesPair in $link.attributes )
+  . originAttribute = $attributesPair.originAttribute.name
+  . targetAttribute = $attributesPair.targetAttribute.name
+#end
+
+#end
+
+==================================================
+FOREIGN KEY(s)  ( foreign keys count = $entity.databaseForeignKeysCount )
+==================================================
+#foreach( $fk in $entity.databaseForeignKeys )
+  ${DOLLAR}fk.name = $fk.name
+#end

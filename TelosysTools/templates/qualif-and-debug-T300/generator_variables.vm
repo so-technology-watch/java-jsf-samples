@@ -1,0 +1,16 @@
+
+GENERATOR VARIABLES :
+=====================
+
+* GENERATOR 
+${DOLLAR}generator.name    = $generator.name
+${DOLLAR}generator.version = $generator.version 
+
+* CURRENT DATE AND TIME 
+${DOLLAR}today.date = $today.date
+${DOLLAR}today.time = $today.time
+${DOLLAR}today.date("dd/MM/yyyy") = $today.date("dd/MM/yyyy")
+${DOLLAR}today.time("HH:mm")      = $today.date("HH:mm")
+
+#assertTrue( $generator.name.equals('Telosys Tools Generator'), "Invalid generator name" )
+#assertTrue( $generator.version.equals('3.0.0') , "Invalid generator version" )

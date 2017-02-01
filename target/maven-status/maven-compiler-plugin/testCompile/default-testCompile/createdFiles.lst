@@ -1,0 +1,12 @@
+org\demo\persistence\impl\jdbc\CarPersistenceJdbcTest.class
+org\demo\basic\bean\CarTest.class
+org\demo\basic\cache\CarCacheTest.class
+org\demo\persistence\impl\jdbc\DriverPersistenceJdbcTest.class
+org\demo\data\domain\CarTest.class
+org\demo\data\domain\DriverTest.class
+org\demo\data\record\CarRecordTest.class
+org\demo\persistence\impl\jdbc\commons\DataSourceProviderTest.class
+org\demo\data\record\DriverRecordTest.class
+org\demo\basic\bean\DriverTest.class
+org\demo\basic\cache\DriverCacheTest.class
+org\demo\persistence\impl\jdbc\commons\DAOTestUtil.class
