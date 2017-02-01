@@ -1,0 +1,30 @@
+===================================================================
+LITERAL 'INT' VALUES FOR N ITEMS
+===================================================================
+
+#set($nbvalues = 12)
+
+Build values for $nbvalues items ...
+#set ( $values = $fn.buildIntValues($nbvalues) )
+
+Values size = $values.size() ## size is 12
+
+#set ( $expr = ( $values.size() == $nbvalues ) )
+#assertTrue($expr, "Unexpected values size !")
+
+Values iteration :
+#foreach( $v in $values )
+ . value = $v
+#end
+
+Values by index : 
+#set($last = ( $values.size() - 1) )
+#foreach ( $i in [0..$last] )
+ . value($i) = $values.get($i) 
+#end
+
+Values by index (reversed) : 
+#foreach ( $i in [$last..0] )
+ . value($i) = $values.get($i) 
+#end
+

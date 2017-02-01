@@ -1,0 +1,7 @@
+// Entity car
+
+Car {
+id : int {@Id};
+nom : string {@NotNull};
+driver : Driver;
+}

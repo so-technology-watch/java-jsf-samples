@@ -1,0 +1,47 @@
+
+===================================================================
+LITERAL VALUES FOR ENTITY : $entity.name
+===================================================================
+
+INT VALUES :
+------------
+Build values for all attributes 
+#set ( $values = $fn.buildIntValues( $entity.attributes ) )
+Key attributes size = $entity.attributes.size()
+Values size = $values.size()
+#foreach( $v in $values )
+ . value = $v
+#end
+
+Build values for each 'key attribute'  
+#set ( $values = $fn.buildIntValues( $entity.keyAttributes ) )
+Key attributes size = $entity.keyAttributes.size()
+Values size = $values.size()
+#foreach( $v in $values )
+ . value = $v
+#end
+
+Build values for each 'non key attribute'  
+#set ( $values = $fn.buildIntValues( $entity.nonKeyAttributes ) )
+Key attributes size = $entity.keyAttributes.size()
+Values size = $values.size()
+#foreach( $v in $values )
+ . value = $v
+#end
+
+------------------------------------------------
+
+LITERAL TYPED VALUES :
+----------------------
+#set( $values = $fn.buildValues($entity.attributes, 1) )
+Values size = $values.size()
+Attributes size = $entity.attributes.size()
+#set ( $b = ($values.size() == $entity.attributes.size()) )
+#assertTrue($b, "values.size != attributes.size") 
+#foreach( $attribute in $entity.attributes )
+Attribute '$attribute.name' :
+ . Literal value for attribute $attribute.name : $values.getValue($attribute.name)
+ . comparisonStatement with 'foo' variable name : $values.comparisonStatement("foo", $attribute ) 
+#end
+ All values : $values.allValues
+
