@@ -1,6 +1,0 @@
-// Entity Driver
-
-Driver {
-id : int {@Id};
-nom : string {@NotNull};
-}
