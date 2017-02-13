@@ -12,7 +12,7 @@
 		<br />
 		<p:panel header="#{msg.welcome_h3}">
 			<h:form>
-				<p:commandLink action="/car/carList?faces-redirect=true" value="Car" />
+				<p:commandLink action="#{CarListController.init()}" value="Car" />
 			</h:form>
 		</p:panel>
 	</ui:define>

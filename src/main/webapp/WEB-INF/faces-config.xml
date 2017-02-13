@@ -10,7 +10,6 @@
 			<base-name>messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
-		<message-bundle>messages</message-bundle>
 		<locale-config>
 			<default-locale>fr</default-locale>
 			<supported-locale>fr</supported-locale>

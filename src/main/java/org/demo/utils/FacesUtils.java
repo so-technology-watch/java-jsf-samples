@@ -29,32 +29,30 @@ public class FacesUtils {
 	 *            FacesMessage.Severity
 	 * @param key
 	 *            String
-	 * @param champ
+	 * @param idUpdate
 	 *            String
 	 */
-	public static void addMessage(FacesMessage.Severity severity, String key, String champ) {
-		String msg = null;
+	public static void addMessage(FacesMessage.Severity severity, String idUpdate, String messagePrin,
+			String messageSecon) {
+		String msg1 = null;
+		String msg2 = null;
 		try {
-			msg = getLibelleLocalise(key);
+			msg1 = getLibelleLocalise(messagePrin);
 		} catch (MissingResourceException lE) {
-			msg = key;
+			msg1 = messagePrin;
 		}
-		FacesMessage facesMsg = new FacesMessage(severity, msg, msg);
+		try {
+			msg2 = getLibelleLocalise(messageSecon);
+		} catch (MissingResourceException lE) {
+			msg2 = messageSecon;
+		}
+		FacesMessage facesMsg = new FacesMessage(severity, msg1, msg2);
 		FacesContext fc = FacesContext.getCurrentInstance();
 		if (fc != null) {
-			fc.addMessage(champ, facesMsg);
+			fc.addMessage(idUpdate, facesMsg);
 		} else {
 			logger.info("FacesUtils.addMessage : FacesContext not found");
 		}
-	}
-
-	/**
-	 * Method isErrors.
-	 * 
-	 * @return boolean
-	 */
-	public static boolean isErrors() {
-		return FacesContext.getCurrentInstance().getMessageList().size() > 0;
 	}
 
 	public static HttpServletRequest getRequest() {
@@ -88,17 +86,6 @@ public class FacesUtils {
 			logger.info("FacesUtils.getServletContext : FacesContext not found");
 		}
 		return sc;
-	}
-
-	public static String getNomApplication() {
-		String result = null;
-		ServletContext sc = getServletContext();
-		if (sc != null) {
-			result = sc.getServletContextName();
-		} else {
-			logger.info("FacesUtils.getNomApplication : ServletContext not found");
-		}
-		return result;
 	}
 
 	public static String getLibelleLocalise(String cle) {
