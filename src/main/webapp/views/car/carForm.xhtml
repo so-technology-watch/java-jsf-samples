@@ -6,11 +6,11 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/template/ui.xhtml">
 	<ui:define name="body">
-		<f:event type="preRenderView"
-			listener="#{CarFormController.initListDriver()}" />
+	
+		<f:event type="preRenderView" listener="#{CarFormController.init()}" />
 
 		<p:commandButton icon="	ui-icon-arrowreturnthick-1-w"
-			value="#{msg.back}" action="#{CarFormController.getRedirected()}"
+			value="#{msg.back}" action="#{CarFormController.getRedirect()}"
 			update="@this" process="@this" />
 
 		<p:panel header="List Car">

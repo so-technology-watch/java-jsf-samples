@@ -1,5 +1,6 @@
-package org.demo.basic.controller;
+package org.demo.basic.controller.common;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -7,6 +8,7 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
@@ -16,6 +18,7 @@ public class GeneralController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final String URL_CAR_VIEW = "/views/car/";
 	private static final String URL_CAR_LIST = "carList?faces-redirect=true";
 	private static final String URL_CAR_FORM = "carForm?faces-redirect=true";
 
@@ -32,10 +35,6 @@ public class GeneralController implements Serializable {
 		return countries;
 	}
 
-	public String getLanguage() {
-		return language;
-	}
-
 	public void localeChanged(ValueChangeEvent e) {
 		String newLocaleValue = e.getNewValue().toString();
 
@@ -50,8 +49,31 @@ public class GeneralController implements Serializable {
 		}
 	}
 
+	/**
+	 * Redirect to the JSF page
+	 * 
+	 * @param path
+	 *            Path to the JSF page
+	 */
+	public static void redirect(String module, String page) {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			ec.redirect(ec.getRequestContextPath() + "/views/" + module + "/" + page + ".jsf");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public static String getURLCarListAbsolute() {
+		return URL_CAR_VIEW + URL_CAR_LIST;
 	}
 
 	public static String getURLCarList() {

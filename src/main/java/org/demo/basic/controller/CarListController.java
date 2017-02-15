@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.demo.basic.controller.common.GeneralController;
 import org.demo.data.record.CarRecord;
 import org.demo.persistence.CarPersistence;
 import org.demo.persistence.commons.PersistenceServiceProvider;

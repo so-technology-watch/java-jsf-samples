@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.demo.basic.controller.common.GeneralController;
 import org.demo.data.record.CarRecord;
 import org.demo.data.record.DriverRecord;
 import org.demo.data.record.listitem.DriverListItem;
@@ -26,7 +28,7 @@ public class CarFormController implements Serializable {
 	/**
 	 * Serial id
 	 */
-	private static final long serialVersionUID = 2019647632080635930L;
+	private static final long serialVersionUID = 2019647634080635930L;
 
 	/**
 	 * Logger
@@ -51,7 +53,7 @@ public class CarFormController implements Serializable {
 	/**
 	 * URL for redirection after save or update of the car
 	 */
-	private String redirected;
+	private String redirect;
 
 	/**
 	 * Car drivers record
@@ -68,24 +70,37 @@ public class CarFormController implements Serializable {
 	 * 
 	 * @param idCar
 	 *            Car identifier, determined if create or update
-	 * @param redirected
+	 * @param redirect
 	 *            Redirection after save or update
 	 * @return URL of the edit page
 	 */
-	public String init(Integer idCar, String redirected) {
-		if (redirected == null || redirected.isEmpty()) {
-			throw new IllegalStateException("Redirect is not defined");
+	@PostConstruct
+	public String init(final Integer idCar, final String redirect) {
+
+		if (redirect == null || redirect.isEmpty()) {
+			return GeneralController.getURLCarList();
+		} else {
+			this.redirect = redirect;
 		}
 
-		this.redirected = redirected;
 		if (idCar != null) {
 			this.isUpdate = true;
-			carEditAdd = carService.findById(idCar);
+			this.carEditAdd = carService.findById(idCar);
 		} else {
 			this.isUpdate = false;
-			carEditAdd = new CarRecord();
+			this.carEditAdd = new CarRecord();
 		}
+
 		return GeneralController.getURLCarForm();
+	}
+
+	/**
+	 * Initialization called from the view.
+	 */
+	public void init() {
+		if (this.redirect == null) {
+			GeneralController.redirect("car", "carList");
+		}
 	}
 
 	/**
@@ -115,7 +130,7 @@ public class CarFormController implements Serializable {
 			boolean isOk = carService.update(carEditAdd);
 			if (isOk) {
 				// (FacesMessage.SEVERITY_INFO, "growl", "save.ok", "");
-				return redirected;
+				return redirect;
 			}
 			return "";
 		} catch (Exception e) {
@@ -167,8 +182,8 @@ public class CarFormController implements Serializable {
 		this.isUpdate = isUpdate;
 	}
 
-	public String getRedirected() {
-		return redirected;
+	public String getRedirect() {
+		return redirect;
 	}
 
 }
