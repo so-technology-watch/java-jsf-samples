@@ -11,8 +11,7 @@
 			<var>msg</var>
 		</resource-bundle>
 		<locale-config>
-			<default-locale>fr</default-locale>
-			<supported-locale>fr</supported-locale>
+			<default-locale>en</default-locale>
 		</locale-config>
 	</application>
 </faces-config>

@@ -5,22 +5,32 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
-<f:view locale="fr">
-	<f:loadBundle var="msg" basename="messages/messages" />
-	<p:growl id="growl" for="growl" showDetail="true" autoUpdate="true" />
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<ui:insert name="header">
-			<title></title>
-		</ui:insert>
-		<h:outputScript library="javax.faces" name="jsf.js" target="head" />
-	</h:head>
+<f:loadBundle var="msg" basename="messages/messages" />
+<p:growl id="growl" for="growl" showDetail="true" autoUpdate="true" />
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<ui:insert name="header">
+		<title></title>
+	</ui:insert>
+	<h:outputScript library="javax.faces" name="jsf.js" target="head" />
+</h:head>
 
-	<h:body>
-		<ui:insert name="body">
-		</ui:insert>
-		<ui:insert name="script">
-		</ui:insert>
-	</h:body>
-</f:view>
+<h:body>
+	<h:form>
+		<p:panelGrid columns="2">
+			<p:selectOneMenu required="true"
+				valueChangeListener="#{GeneralController.localeChanged}"
+				onchange="submit()" value="#{GeneralController.language}">
+				<f:selectItems
+					value="#{GeneralController.getCountriesInMap().entrySet()}"
+					var="countries" itemValue="#{countries.value}"
+					itemLabel="#{countries.key}" />
+			</p:selectOneMenu>
+		</p:panelGrid>
+	</h:form>
+	<ui:insert name="body">
+	</ui:insert>
+	<ui:insert name="script">
+	</ui:insert>
+</h:body>
 </html>
