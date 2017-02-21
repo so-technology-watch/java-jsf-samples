@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
-<f:loadBundle var="msg" basename="messages/messages" />
+<f:view locale="#{GeneralController.locale}" />
 <p:growl id="growl" for="growl" showDetail="true" autoUpdate="true" />
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,7 +17,8 @@
 
 <h:body>
 	<h:form>
-		<p:panelGrid columns="2">
+		<div align="right">
+			<p:outputLabel value="#{msg['language_selection']} " />
 			<p:selectOneMenu required="true"
 				valueChangeListener="#{GeneralController.localeChanged}"
 				onchange="submit()" value="#{GeneralController.language}">
@@ -26,7 +27,7 @@
 					var="countries" itemValue="#{countries.value}"
 					itemLabel="#{countries.key}" />
 			</p:selectOneMenu>
-		</p:panelGrid>
+		</div>
 	</h:form>
 	<ui:insert name="body">
 	</ui:insert>

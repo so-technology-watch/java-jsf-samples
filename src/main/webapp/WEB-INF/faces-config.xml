@@ -6,12 +6,24 @@
 	version="2.2">
 
 	<application>
+		<!-- URL du package contenant les message_XX.properties -->
 		<resource-bundle>
-			<base-name>messages</base-name>
+			<base-name>messages.messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
+
+		<resource-bundle>
+			<base-name>messages.messagesCar</base-name>
+			<var>car</var>
+		</resource-bundle>
+
+		<resource-bundle>
+			<base-name>messages.messagesDriver</base-name>
+			<var>driver</var>
+		</resource-bundle>
+
 		<locale-config>
-			<default-locale>en</default-locale>
+			<default-locale>en_US</default-locale>
 		</locale-config>
 	</application>
 </faces-config>

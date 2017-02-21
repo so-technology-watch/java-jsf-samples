@@ -6,19 +6,18 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/template/ui.xhtml">
 	<ui:define name="body">
-	
 		<f:event type="preRenderView" listener="#{CarFormController.init()}" />
 
 		<p:commandButton icon="	ui-icon-arrowreturnthick-1-w"
 			value="#{msg.back}" action="#{CarFormController.getRedirect()}"
 			update="@this" process="@this" />
 
-		<p:panel header="List Car">
+		<p:panel header="#{car['car']}">
 			<h:form id="formAddEditCar">
 				<p:panelGrid id="panelGridCar" columns="2"
 					columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid">
 
-					<p:outputLabel for="idCar" value="Id" />
+					<p:outputLabel for="idCar" value="#{car['car.id']}" />
 					<p:outputPanel>
 						<p:inputText id="idCar" required="true" style="width: 89%;"
 							disabled="#{CarFormController.isUpdate()}"
@@ -26,14 +25,14 @@
 						<p:message for="idCar" />
 					</p:outputPanel>
 
-					<p:outputLabel for="nomCar" value="#{msg.car_nom}" />
+					<p:outputLabel for="nomCar" value="#{car['car.name']}" />
 					<p:outputPanel>
 						<p:inputText id="nomCar" required="true" style="width: 89%;"
 							value="#{CarFormController.carEditAdd.nom}" />
 						<p:message for="nomCar" />
 					</p:outputPanel>
 
-					<p:outputLabel for="DriverCar" value="#{msg.driver_list}" />
+					<p:outputLabel for="DriverCar" value="#{car['car.driver']}" />
 					<p:outputPanel>
 						<p:selectOneMenu id="DriverCar" required="false"
 							value="#{CarFormController.carEditAdd.driver}">

@@ -22,13 +22,14 @@ public class GeneralController implements Serializable {
 	private static final String URL_CAR_LIST = "carList?faces-redirect=true";
 	private static final String URL_CAR_FORM = "carForm?faces-redirect=true";
 
-	private String language;
+	private String language = FacesContext.getCurrentInstance().getViewRoot().getLocale().toString();
+	private Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 
 	private static Map<String, Object> countries;
 	static {
 		countries = new LinkedHashMap<String, Object>();
 		countries.put("English", Locale.US); // value, label
-		countries.put("Français", Locale.FRANCE);
+		countries.put("FranÃ§ais", Locale.FRANCE);
 	}
 
 	public Map<String, Object> getCountriesInMap() {
@@ -40,11 +41,9 @@ public class GeneralController implements Serializable {
 
 		// loop country map to compare the locale code
 		for (Map.Entry<String, Object> entry : countries.entrySet()) {
-
 			if (entry.getValue().toString().equals(newLocaleValue)) {
-
 				FacesContext.getCurrentInstance().getViewRoot().setLocale((Locale) entry.getValue());
-
+				this.locale = (Locale) entry.getValue();
 			}
 		}
 	}
@@ -62,6 +61,10 @@ public class GeneralController implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Locale getLocale() {
+		return locale;
 	}
 
 	public String getLanguage() {

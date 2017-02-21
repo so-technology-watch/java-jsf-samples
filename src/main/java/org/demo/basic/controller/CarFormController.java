@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -74,7 +73,6 @@ public class CarFormController implements Serializable {
 	 *            Redirection after save or update
 	 * @return URL of the edit page
 	 */
-	@PostConstruct
 	public String init(final Integer idCar, final String redirect) {
 
 		if (redirect == null || redirect.isEmpty()) {
